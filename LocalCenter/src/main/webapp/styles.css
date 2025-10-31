@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+svg {
+	width: 30px;
+	height: 30px;
+}
+
+button, #link {
+	width: 100%;
+}
+
+span {
+	color: red;
+}
