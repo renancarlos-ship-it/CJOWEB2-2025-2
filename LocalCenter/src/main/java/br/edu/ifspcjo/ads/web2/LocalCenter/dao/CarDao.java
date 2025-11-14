@@ -2,7 +2,10 @@ package br.edu.ifspcjo.ads.web2.LocalCenter.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -28,6 +31,27 @@ public class CarDao {
 			return true;
 		} catch (SQLException sqlException) {
 			throw new RuntimeException("Erro ao inserir dados", sqlException);
+		}
+	}
+	public List<Car> getCars() {
+		String sql = "select * from car";
+		List<Car> cars = new ArrayList<>();
+		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					Car car = new Car();
+					car.setId(rs.getLong(1));
+					car.setBrand(rs.getString(2));
+					car.setModel(rs.getString(3));
+					car.setColor(rs.getString(4));
+					car.setYear(rs.getInt(5));
+					car.setPlate(rs.getString(6));
+					cars.add(car);
+				}
+			}
+			return cars;
+		} catch (SQLException sqlException) {
+			throw new RuntimeException("Erro durante a consulta", sqlException);
 		}
 	}
 }

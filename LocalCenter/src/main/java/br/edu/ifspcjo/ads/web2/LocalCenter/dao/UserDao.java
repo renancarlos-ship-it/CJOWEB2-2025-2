@@ -44,7 +44,7 @@ public class UserDao {
 	}
 
 	public Optional<User> getUserByEmail(String email) {
-		String sql = "select id,email from user where email=?";
+		String sql = "select id,email,name from user where email=?";
 		Optional<User> optional = Optional.empty();
 		try (Connection con = dataSource.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setString(1, email);
@@ -53,6 +53,7 @@ public class UserDao {
 					User user = new User();
 					user.setId(rs.getLong(1));
 					user.setEmail(rs.getString(2));
+					user.setName(rs.getString(3));
 					optional = Optional.of(user);
 				}
 			}
@@ -61,6 +62,7 @@ public class UserDao {
 			throw new RuntimeException("Erro durante a consulta", sqlException);
 		}
 	}
+
 	public Optional<User> getUserByEmailAndPassword(String email, String password) {
 		String sql = "select id,name,email from user where email=? and password=?";
 		Optional<User> optional = Optional.empty();

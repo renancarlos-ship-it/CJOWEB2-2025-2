@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LocalCenter - Página de Cadastro de Carro</title>
+<title>LocalCenter - Página de Cadastro de Cliente</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -34,7 +34,7 @@
 				<c:if test="${result == 'registered'}">
 					<div class="alert alert-success alert-dismissible fade show"
 						role="alert">
-						Carro cadastrado com sucesso.
+						Cliente cadastrado com sucesso.
 						<button type="button" class="btn-close" data-bs-dismiss="alert"
 							aria-label="Close"></button>
 					</div>
@@ -42,53 +42,58 @@
 				<c:if test="${result == 'notRegistered'}">
 					<div class="alert alert-danger alert-dismissible fade show"
 						role="alert">
-						Carro não cadastrado. Faça o login.
+						Cliente não cadastrado. Faça o login.
 						<button type="button" class="btn-close" data-bs-dismiss="alert"
 							aria-label="Close"></button>
 					</div>
 				</c:if>
-			<form action="carRegister" method="post" id="form1">
+			<form action="clientRegister" method="post" id="form1">
 
 					<c:choose>
-						<c:when test="${car == null}">
-							<h1 class="text-center">Novo Carro</h1>
+						<c:when test="${client == null}">
+							<h1 class="text-center">Novo Cliente</h1>
 						</c:when>
-						<c:when test="${car != null}">
-							<h1 class="text-center">Edição de Carro</h1>
+						<c:when test="${client != null}">
+							<h1 class="text-center">Edição de Cliente</h1>
 						</c:when>
 					</c:choose>
 					<c:choose>
-						<c:when test="${car == null}">
+						<c:when test="${client == null}">
 							<input type="hidden" name="id" value="0">
 						</c:when>
-						<c:when test="${car != null}">
+						<c:when test="${client != null}">
 							<input type="hidden" name="id" value="${car.id}">
 						</c:when>
 					</c:choose>
 					
 					<div class="mb-2">
-						<label for="brand">Marca*</label> <input type="text"
-						name="brand" id="brand" class="form-control" minlength="3"
+						<label for="name">Nome Completo*</label> <input type="text"
+						name="name" id="name" class="form-control" minlength="3"
 						maxlength="50" required="required"> <span id="0"></span>
 					</div>
 					<div class="mb-2">
-						<label for="model">Modelo*</label> <input type="text"
-						name="model" id="model" class="form-control" minlength="3"
+						<label for="dateOfBirth">Data de Nascimento*</label> <input type="date"
+						name="dateOfBirth" id="dateOfBirth" class="form-control" required="required">
+						 <span id="0"></span>
+					</div>
+					<div class="mb-2">
+						<label for="cpf">CPF*</label> <input type="text"
+						name="cpf" id="cpf" class="form-control" minlength="3"
 						maxlength="50" required="required"> <span id="0"></span>
 					</div>
 					<div class="mb-2">
-						<label for="color">Cor*</label> <input type="text"
-						name="color" id="color" class="form-control" minlength="3"
+						<label for="cnh">CNH*</label> <input type="text"
+						name="cnh" id="cnh" class="form-control" minlength="3"
 						maxlength="50" required="required"> <span id="0"></span>
 					</div>
 					<div class="mb-2">
-						<label for="year">Ano*</label> <input type="text"
-						name="year" id="year" class="form-control" minlength="3"
+						<label for="address">Endereço*</label> <input type="text"
+						name="address" id="address" class="form-control" minlength="3"
 						maxlength="50" required="required"> <span id="0"></span>
 					</div>
 					<div class="mb-2">
-						<label for="plate">Placa*</label> <input type="text"
-						name="plate" id="plate" class="form-control" minlength="3"
+						<label for="phoneNumber">Celular*</label> <input type="text"
+						name="phoneNumber" id="phoneNumber" class="form-control" minlength="3"
 						maxlength="50" required="required"> <span id="0"></span>
 					</div>
 					<div class="col-12 mb-2">

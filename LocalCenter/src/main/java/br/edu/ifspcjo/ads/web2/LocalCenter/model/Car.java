@@ -81,4 +81,9 @@ public class Car implements Serializable {
 		return Objects.equals(id, other.id);
 	}
 
+	public void setUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
