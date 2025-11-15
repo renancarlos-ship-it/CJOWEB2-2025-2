@@ -54,4 +54,9 @@ public class CarDao {
 			throw new RuntimeException("Erro durante a consulta", sqlException);
 		}
 	}
+
+	public Car findById(Long carId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

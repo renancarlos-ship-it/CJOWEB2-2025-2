@@ -31,5 +31,10 @@ public class ClientDao {
 			throw new RuntimeException("Erro ao inserir dados", sqlException);
 		}
 	}
+
+	public Client findById(Long clientId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	}
