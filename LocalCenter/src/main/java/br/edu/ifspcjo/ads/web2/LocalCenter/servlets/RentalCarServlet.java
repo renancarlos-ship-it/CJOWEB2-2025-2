@@ -2,7 +2,6 @@ package br.edu.ifspcjo.ads.web2.LocalCenter.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import br.edu.ifspcjo.ads.web2.LocalCenter.dao.CarDao;
@@ -63,8 +62,9 @@ public class RentalCarServlet extends HttpServlet {
 			rentalCar.setCar(car);
 			rentalCar.setWithdrawDate(withdrawDate);
 			rentalCar.setReturnDate(returnDate);
-			rentalCar.setDailyRateValue(dailyRate);
 			rentalCar.setReturnDate(returnDate);
+			rentalCar.setDailyValue(dailyRate);
+			rentalCar.setTotalValue(totalValue);
 			
 			if(id == 0) {
 				if(rentalCarDao.save(rentalCar)) {

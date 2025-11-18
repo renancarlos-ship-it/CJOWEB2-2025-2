@@ -53,7 +53,7 @@ public class ClientRegisterServlet extends HttpServlet {
 					req.setAttribute("result", "registered");
 				}
 			}
-			url = "/car-register.jsp";
+			url = "/client-register.jsp";
 		}
  
 		RequestDispatcher dispatcher = req.getRequestDispatcher(url);
