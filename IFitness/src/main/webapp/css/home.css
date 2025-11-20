@@ -1,0 +1,12 @@
+img {
+  width: 30px;
+  height: 30px;
+}
+
+button {
+	width: 100%;
+}
+
+button, #link {
+	width: 100%;
+}
