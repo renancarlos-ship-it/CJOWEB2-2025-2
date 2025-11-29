@@ -8,11 +8,17 @@ public class Car implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private String brand;
-	private String model;
-	private String color;
-	private int year;
-	private String plate;
+	private String brand;      
+	private String model;      
+	private String color;      
+	private Integer year;      
+	private String plate;      
+	private Double dailyRate;  
+	
+	
+	public Car() {
+	}
+
 	
 	public Long getId() {
 		return id;
@@ -22,7 +28,6 @@ public class Car implements Serializable {
 		this.id = id;
 	}
 
-	
 	public String getBrand() {
 		return brand;
 	}
@@ -47,11 +52,11 @@ public class Car implements Serializable {
 		this.color = color;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
@@ -63,6 +68,13 @@ public class Car implements Serializable {
 		this.plate = plate;
 	}
 
+	public Double getDailyRate() {
+		return dailyRate;
+	}
+
+	public void setDailyRate(Double dailyRate) {
+		this.dailyRate = dailyRate;
+	}
 
 	@Override
 	public int hashCode() {
@@ -80,10 +92,4 @@ public class Car implements Serializable {
 		Car other = (Car) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	public void setUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

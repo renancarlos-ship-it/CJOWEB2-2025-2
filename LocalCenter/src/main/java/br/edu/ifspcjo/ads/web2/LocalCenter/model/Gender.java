@@ -16,5 +16,4 @@ public enum Gender {
 	public String getDescription() {
 		return description;
 	}
-
 }

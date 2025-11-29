@@ -7,8 +7,7 @@ import javax.sql.DataSource;
 
 public class DataSourceSearcher {
 	
-	private static DataSourceSearcher instance = 
-			new DataSourceSearcher();
+	private static DataSourceSearcher instance = new DataSourceSearcher();
 	private DataSource dataSource;
 	
 	private DataSourceSearcher() {
@@ -16,7 +15,7 @@ public class DataSourceSearcher {
 			Context context = new InitialContext();
 			context = (Context)context.lookup("java:comp/env");
 			dataSource = (DataSource)context.lookup("jdbc/LocalCenterDB");
-		}catch (NamingException e) {
+		} catch (NamingException e) {
 			throw new RuntimeException("Erro durante o lookup", e);
 		}
 	}

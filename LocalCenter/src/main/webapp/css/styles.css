@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+img, svg {
+	width: 30px;
+	height: 30px;
+	vertical-align: middle; 
+}
+
+svg.action {
+	width: 25px;
+	height: 25px;
+}
+
+button:not(.btn-close):not(.navbar-toggler), 
+#link {
+	width: 100%;
+	margin-bottom: 5px; 
+}
+
+
+#switchTheme {
+	width: auto;
+	min-width: 100px; 
+}
+
+.navbar button {
+	width: auto;
+}
+
+.table button, .table .btn {
+	width: auto;
+	display: inline-block;
+}
+
+span {
+	color: red;
+	font-size: 0.9em; 
+}
+
+.badge, .navbar-text, .input-group-text {
+	color: inherit; 
+}

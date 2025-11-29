@@ -8,7 +8,7 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	Long id;
+	private Long id;
 	private String name;
 	private String email;
 	private String password;
@@ -88,5 +88,4 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-
 }

@@ -12,52 +12,69 @@ public class Client implements Serializable {
 	private String name;
 	private LocalDate dateOfBirth;
 	private String cpf;
-	private String cnh;
+	private String cnh; 
 	private String address;
 	private String phoneNumber;
 	
+	public Client() {
+	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
+
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 	public String getCnh() {
 		return cnh;
 	}
+
 	public void setCnh(String cnh) {
 		this.cnh = cnh;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -71,9 +88,7 @@ public class Client implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Client other = (Client) obj;
 		return Objects.equals(id, other.id);
-	}	
-	
-
+	}
 }

@@ -9,7 +9,6 @@ import br.edu.ifspcjo.ads.web2.LocalCenter.dao.RentalCarDao;
 import br.edu.ifspcjo.ads.web2.LocalCenter.model.Car;
 import br.edu.ifspcjo.ads.web2.LocalCenter.model.Client;
 import br.edu.ifspcjo.ads.web2.LocalCenter.model.RentalCar;
-
 import br.edu.ifspcjo.ads.web2.LocalCenter.utils.DataSourceSearcher;
 
 import jakarta.servlet.RequestDispatcher;
@@ -18,49 +17,37 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/homeServlet")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/clientSearch")
+public class ClientSearchServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public HomeServlet() {
+	public ClientSearchServlet() {
 		super();
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
-	}
-
-	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession(false);
+		String nameSearch = req.getParameter("nameSearch");
+		String cpfSearch = req.getParameter("cpfSearch");
 		
-		if (session == null || session.getAttribute("user") == null) {
-			resp.sendRedirect("login.jsp");
-			return;
-		}
+		ClientDao clientDao = new ClientDao(DataSourceSearcher.getInstance().getDataSource());
+		List<Client> clientList = clientDao.findWithFilters(nameSearch, cpfSearch);
 		
 		CarDao carDao = new CarDao(DataSourceSearcher.getInstance().getDataSource());
 		List<Car> carList = carDao.findAll();
 		
-		ClientDao clientDao = new ClientDao(DataSourceSearcher.getInstance().getDataSource());
-		List<Client> clientList = clientDao.findAll();
-		
 		RentalCarDao rentalDao = new RentalCarDao(DataSourceSearcher.getInstance().getDataSource());
 		List<RentalCar> rentalList = rentalDao.findAll();
 
-		req.setAttribute("carList", carList);
 		req.setAttribute("clientList", clientList);
+		req.setAttribute("carList", carList);
 		req.setAttribute("rentalList", rentalList);
+		req.setAttribute("lastNameSearch", nameSearch);
+		req.setAttribute("lastCpfSearch", cpfSearch);
+		req.setAttribute("activeTab", "clients");
 		
-		String tab = req.getParameter("tab");
-		if (tab != null && !tab.isEmpty()) {
-			req.setAttribute("activeTab", tab);
-		}
-
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/home.jsp");
 		dispatcher.forward(req, resp);
 	}

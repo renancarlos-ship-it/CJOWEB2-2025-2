@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
+
 import br.edu.ifspcjo.ads.web2.LocalCenter.model.User;
 
 public class UserDao {
@@ -21,13 +22,15 @@ public class UserDao {
 	}
 		
 	public Boolean save(User user){
-		// verificar se existe um usuário com o mesmo e-mail
 		Optional<User> optional = getUserByEmail(user.getEmail());
 		if(optional.isPresent()) {
 			return false;
 		}
+		
+		
 		String sql = "insert into user (name, email, password, "
-				+ "birth_date, gender, active) values (?,?,?,?,?,?)";
+				+ "birth_date, gender, score) values (?,?,?,?,?,?)";
+		
 		try(Connection conn = dataSource.getConnection(); 
 				PreparedStatement ps = conn.prepareStatement(sql)){
 			ps.setString(1, user.getName());
@@ -35,14 +38,21 @@ public class UserDao {
 			ps.setString(3, user.getPassword());
 			ps.setDate(4, Date.valueOf(user.getDateOfBirth()));
 			ps.setString(5, user.getGender().toString());
-			ps.setBoolean(6, true);
+			
+			
+			if (user.getScore() != null) {
+				ps.setInt(6, user.getScore());
+			} else {
+				ps.setInt(6, 0);
+			}
+			
 			ps.executeUpdate();
 		}catch (SQLException e) {
 			throw new RuntimeException("Erro durante a escrita no BD", e);
 		}
 		return true;
 	}
-
+	
 	public Optional<User> getUserByEmail(String email) {
 		String sql = "select id,email,name from user where email=?";
 		Optional<User> optional = Optional.empty();

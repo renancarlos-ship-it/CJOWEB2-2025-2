@@ -3,60 +3,47 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR" data-bs-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LocalCenter - Página de Cadastro de Carro</title>
+<title>LocalCenter - Cadastro de Veículo</title>
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+	<link href="css/styles.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <div class="container-fluid">
-	    <a class="navbar-brand" href="homeServlet">LocalCenter</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="navbar-toggler-icon"></span>
-	    </button>
-	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-	        <li class="nav-item">
-	          <a class="nav-link" href="homeServlet">Home</a>
-	        </li>
-	      </ul>
-	    </div>
-	  </div>
-	</nav>
-	<div class="container ">
-		<div class="center col-lg-6 offset-lg-3 col-sm-12">
+	<jsp:include page="navbar.jsp" />
+	
+	<div class="container mt-5">
+		<div class="card shadow col-lg-6 offset-lg-3 col-sm-12">
+			<div class="card-body p-4">
+				
 				<c:if test="${result == 'registered'}">
-					<div class="alert alert-success alert-dismissible fade show"
-						role="alert">
-						Carro cadastrado com sucesso.
-						<button type="button" class="btn-close" data-bs-dismiss="alert"
-							aria-label="Close"></button>
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						Veículo salvo com sucesso!
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 				</c:if>
-				<c:if test="${result == 'notRegistered'}">
-					<div class="alert alert-danger alert-dismissible fade show"
-						role="alert">
-						Carro não cadastrado. Faça o login.
-						<button type="button" class="btn-close" data-bs-dismiss="alert"
-							aria-label="Close"></button>
+				<c:if test="${result == 'error'}">
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						Erro ao salvar o veículo. Verifique os dados e tente novamente.
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 				</c:if>
-			<form action="carRegister" method="post" id="form1">
-
+				
+				<form action="carRegisterServlet" method="post" id="formCar">
+					
 					<c:choose>
 						<c:when test="${car == null}">
-							<h1 class="text-center">Novo Carro</h1>
+							<h2 class="text-center mb-4">Novo Veículo</h2>
 						</c:when>
 						<c:when test="${car != null}">
-							<h1 class="text-center">Edição de Carro</h1>
+							<h2 class="text-center mb-4">Editar Veículo</h2>
 						</c:when>
 					</c:choose>
+
 					<c:choose>
 						<c:when test="${car == null}">
 							<input type="hidden" name="id" value="0">
@@ -65,39 +52,60 @@
 							<input type="hidden" name="id" value="${car.id}">
 						</c:when>
 					</c:choose>
-					
-					<div class="mb-2">
-						<label for="brand">Marca*</label> <input type="text"
-						name="brand" id="brand" class="form-control" minlength="3"
-						maxlength="50" required="required"> <span id="0"></span>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="brand" class="form-label">Marca*</label> 
+							<input type="text" name="brand" id="brand" class="form-control" 
+								required="required" placeholder="Ex: Fiat" value="${car.brand}">
+						</div>
+						
+						<div class="col-md-6 mb-3">
+							<label for="model" class="form-label">Modelo*</label> 
+							<input type="text" name="model" id="model" class="form-control" 
+								required="required" placeholder="Ex: Uno" value="${car.model}">
+						</div>
 					</div>
-					<div class="mb-2">
-						<label for="model">Modelo*</label> <input type="text"
-						name="model" id="model" class="form-control" minlength="3"
-						maxlength="50" required="required"> <span id="0"></span>
+
+					<div class="row">
+						<div class="col-md-6 mb-3">
+							<label for="color" class="form-label">Cor*</label> 
+							<input type="text" name="color" id="color" class="form-control" 
+								required="required" placeholder="Ex: Prata" value="${car.color}">
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label for="year" class="form-label">Ano Fabricação*</label> 
+							<input type="number" name="year" id="year" class="form-control" 
+								required="required" min="1900" max="2100" value="${car.year}">
+						</div>
 					</div>
-					<div class="mb-2">
-						<label for="color">Cor*</label> <input type="text"
-						name="color" id="color" class="form-control" minlength="3"
-						maxlength="50" required="required"> <span id="0"></span>
+
+					<div class="mb-3">
+						<label for="plate" class="form-label">Placa*</label> 
+						<input type="text" name="plate" id="plate" class="form-control" 
+							required="required" placeholder="ABC-1234" value="${car.plate}" maxlength="8" style="text-transform: uppercase;">
 					</div>
-					<div class="mb-2">
-						<label for="year">Ano*</label> <input type="text"
-						name="year" id="year" class="form-control" minlength="3"
-						maxlength="50" required="required"> <span id="0"></span>
+
+					<div class="mb-3">
+						<label for="dailyRate" class="form-label">Valor da Diária (R$)*</label> 
+						<div class="input-group">
+							<span class="input-group-text">R$</span>
+							<input type="number" name="dailyRate" id="dailyRate" class="form-control" 
+								required="required" step="0.01" min="0" placeholder="0.00" value="${car.dailyRate}">
+						</div>
 					</div>
-					<div class="mb-2">
-						<label for="plate">Placa*</label> <input type="text"
-						name="plate" id="plate" class="form-control" minlength="3"
-						maxlength="50" required="required"> <span id="0"></span>
+
+					<div class="d-grid gap-2 mt-4">
+						<button type="submit" class="btn btn-primary btn-lg">Salvar Veículo</button>
+						<a href="homeServlet" class="btn btn-secondary">Cancelar</a>
 					</div>
-					<div class="col-12 mb-2">
-						<button type="submit" class="btn btn-primary">Salvar</button>
-					</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="js/theme.js"></script>
 </body>
 </html>
